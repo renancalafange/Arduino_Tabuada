@@ -1,0 +1,96 @@
+#include <LiquidCrystal.h>
+
+LiquidCrystal lcd(13,11,5,4,3,2);
+int i = 0, j = 0, a, b, x, x1, x2, r;
+
+void setup() { 
+  // put your setup code here, to run once:
+  pinMode (6, INPUT); 
+  pinMode (7, INPUT); 
+  pinMode (8, OUTPUT); 
+  pinMode (9, OUTPUT);
+  pinMode (10, OUTPUT);
+  
+  lcd.begin(16,2);
+  //lcd.print("ON!!!"); //printa
+  //lcd.setCursor(0,0); //seta cursor
+  //lcd.write('X');  //printa um caracter
+  //lcd.clear(); //limpa tela e zera cursor
+  
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  
+
+  a = random(9);
+  b = random(9);
+  r = a*b;
+  x = random (2);
+  if (x == 0)
+  {
+    x1 = r;
+    x2 = random(81);
+  }
+  else
+  {
+    x2 = r;
+    x1 = random(81);
+  }
+
+  lcd.clear();
+  lcd.print(int(a));
+  lcd.print(" x ");
+  lcd.print(int(b));
+  lcd.setCursor(0,1);
+  lcd.print("A)");
+  lcd.print(int(x1));
+  lcd.print(" B)");
+  lcd.print(int(x2));
+//  lcd.print("1)%i 2)%i", r, r-a);
+    
+  while(1)
+  {
+    i = digitalRead(6);
+    j = digitalRead(7);
+    
+    if(i==LOW)
+    {
+      if(x1==r)
+      {
+        analogWrite(9,255);
+        delay(2000);
+        analogWrite(9,0);
+        break;
+      }
+      else
+      {
+        analogWrite(8,255);
+        delay(2000);
+        analogWrite(8,0);
+        break;
+      }
+    }
+    else if (j==LOW)
+    {
+      if(x2==r)
+      {
+        digitalWrite(9,255);
+        delay(2000);
+        digitalWrite(9,0);
+        break;
+      }
+      else
+      {
+        digitalWrite(8,255);
+        delay(2000);
+        digitalWrite(8,0);
+        break;
+      }
+    }
+  }
+  
+
+  
+}
